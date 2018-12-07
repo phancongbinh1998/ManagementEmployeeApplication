@@ -1,0 +1,43 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <!-- Configuration for the default package. -->
+    <package name="default" extends="struts-default" namespace="/">
+        <action name="">
+            <result>login.html</result>
+        </action>
+        <action name="try">
+            <result>login.html</result>
+        </action>
+        <action name="login" class="sample.struts2.login.LoginAction">
+            <result name="success">search.jsp</result>
+            <result name="fail" type="redirect">invalid.html</result>
+        </action>
+        <action name="searchLastName" class="sample.struts2.search.SearchLastNameAction">
+            <result>search.jsp</result>
+            
+        </action>
+        <action name="deleteAccount" class="sample.struts2.delete.DeleteAction">
+            <result name="success" type="redirectAction">
+                <param name="actionName">searchLastName</param>
+                <param name="searchLastName">${searchLastValue}</param>
+            </result>
+            <result name="fail" type="redirect">errorPage.html</result>
+        </action>
+        <action name="updatePassRole" class="sample.struts2.update.UpdateAction">
+            <result name="success" type="redirectAction">
+                <param name="actionName">searchLastName</param>
+                <param name="searchLastName">${searchLastValue}</param>
+            </result>
+            <result name="fail" type="redirect">errorPage.html</result>
+        </action>
+        <action name="createAccount" class="sample.struts2.createAccount.CreateAccountAction">
+            <exception-mapping exception="java.sql.SQLException" result="input"/>
+            <result name="input">createAccount.jsp</result>
+            <result name="success">login.html</result>
+            <result name="fail" type="redirect">errorPage.html</result>
+        </action>
+    </package>
+</struts>
